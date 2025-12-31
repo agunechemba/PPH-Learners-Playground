@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PPH Learners Playground</title>
+  <link rel="stylesheet" href="prism.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>PPH Learners Playground</h1>
+  <div class="controls">
+    <button id="runBtn">▶ Run</button>
+    <button id="downloadBtn">⬇ Download</button>
+  </div>
+</header>
+
+<main>
+  <div class="editor-wrapper">
+    <div id="lineNumbers"></div>
+    <div class="code-area">
+      <pre id="highlighting" aria-hidden="true"><code class="language-markup" id="highlighting-content"></code></pre>
+      <textarea id="editor" spellcheck="false" wrap="off"></textarea>
+    </div>
+  </div>
+  <iframe id="preview"></iframe>
+</main>
+
+<footer>
+    <a href="https://agunechemba.name.ng" target="_blank" style="text-decoration: none; color: inherit;">
+        Made by Agunechemba Ekene
+    </a>
+</footer>
+
+
+<script src="prism.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
