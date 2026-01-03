@@ -16,6 +16,151 @@
   </div>
 </header>
 
+
+
+
+
+
+<div id="pph-external-loader-container">
+    <style>
+        #pph-loader-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #2c3e50; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999999;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: opacity 1.2s ease-in-out, visibility 1.2s;
+        }
+
+        .pph-loader-inner { text-align: center; }
+
+        /* Book Animation */
+        .pph-book-graphic {
+            width: 54px; height: 38px;
+            position: relative; margin: 0 auto 25px;
+            border: 3px solid #ffffff; border-radius: 4px;
+        }
+
+        .pph-page-flip {
+            position: absolute; width: 27px; height: 34px;
+            top: 0; right: 0; background: #e67e22; 
+            transform-origin: left center;
+            animation: pphFlipAnim 1.8s infinite ease-in-out;
+            border-left: 1px solid rgba(0,0,0,0.2);
+        }
+
+        .pph-page-flip:nth-child(2) { animation-delay: 0.4s; }
+        .pph-page-flip:nth-child(3) { animation-delay: 0.8s; }
+
+        @keyframes pphFlipAnim {
+            0% { transform: rotateY(0deg); }
+            80%, 100% { transform: rotateY(-180deg); }
+        }
+
+        /* Progress Bar Styling */
+        .pph-progress-rail {
+            width: 260px; height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px; margin: 20px auto; overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        #pph-actual-bar {
+            width: 0%; height: 100%;
+            background: linear-gradient(90deg, #27ae60, #2ecc71);
+            transition: width 1.5s linear; /* Smooth crawling movement */
+        }
+
+        .pph-loading-msg { 
+            font-size: 1rem; 
+            color: #bdc3c7; 
+            margin: 0;
+            min-height: 1.2em; /* Prevents layout jump when text changes */
+        }
+        
+        .pph-title-text { 
+            font-size: 1.8rem; 
+            margin: 10px 0 8px 0; 
+            font-weight: bold; 
+            letter-spacing: 0.5px;
+        }
+    </style>
+
+    <div id="pph-loader-wrapper">
+        <div class="pph-loader-inner">
+            <div class="pph-book-graphic">
+                <div class="pph-page-flip"></div>
+                <div class="pph-page-flip"></div>
+                <div class="pph-page-flip"></div>
+            </div>
+            <div class="pph-title-text">PPH Learners Playground</div>
+            <p id="pph-status-msg" class="pph-loading-msg">Gathering your learning materials...</p>
+            <div class="pph-progress-rail">
+                <div id="pph-actual-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            const bar = document.getElementById('pph-actual-bar');
+            const status = document.getElementById('pph-status-msg');
+            const wrapper = document.getElementById('pph-loader-wrapper');
+            
+            let progress = 0;
+            const messages = [
+                "Setting up the sandbox...",
+                "Warming up the playground...",
+                "Organizing the modules...",
+                "Almost there, hang tight!"
+            ];
+
+            // 1. Slow down the simulated progress bar movement
+            const simLoad = setInterval(() => {
+                if (progress < 90) {
+                    progress += Math.floor(Math.random() * 8) + 4; 
+                    bar.style.width = progress + '%';
+                    
+                    // Cycle through messages based on progress
+                    if (progress > 20 && progress < 50) status.innerText = messages[0];
+                    if (progress > 50 && progress < 75) status.innerText = messages[1];
+                    if (progress > 75) status.innerText = messages[2];
+                }
+            }, 1500); // Updates every 1.5 seconds
+
+            window.addEventListener('load', () => {
+                // Ensure the logic waits at least a moment even if the site loads instantly
+                setTimeout(() => {
+                    clearInterval(simLoad);
+                    bar.style.width = '100%';
+                    status.innerText = "Welcome! Let's start learning.";
+                    
+                    // THE 2 SECOND DELAY:
+                    // This keeps the "100%" bar and "Welcome" text visible for exactly 2 seconds
+                    setTimeout(() => {
+                        wrapper.style.opacity = '0';
+                        wrapper.style.visibility = 'hidden';
+                        
+                        // Clean up the loader from the page after fade
+                        setTimeout(() => wrapper.remove(), 1200);
+                    }, 2000); 
+                }, 1000); 
+            });
+        })();
+    </script>
+</div>
+
+
+
+
+   
 <main>
   <div class="editor-wrapper">
     <div id="lineNumbers"></div>
